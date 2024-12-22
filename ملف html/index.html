@@ -1,0 +1,1612 @@
+
+<!DOCTYPE html>
+
+<html dir="rtl" lang="ar">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>ReaperYBSTUDY 3.1</title>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet"/>
+<style>
+        :root {
+            --primary: #6d552d;
+            --accent: #d4af37;
+            --dark: #1c1c1c;
+            --light: #ffffff;
+            --success: #4CAF50;
+            --warning: #FFC107;
+            --danger: #f44336;
+        }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Cairo', sans-serif;
+        }
+        body {
+            background: #1a1a1a;
+            color: #f5f5f5;
+            min-height: 100vh;
+            overflow-x: hidden;
+            transition: all 0.3s ease;
+        }
+        header {
+            background: #d4af37;
+            padding: 1rem;
+            text-align: center;
+            position: fixed;
+            width: 100%;
+            z-index: 1000;
+            color: #f5f5f5;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+        }
+        nav {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+        }
+        nav a {
+            color: #d4af37;
+            text-decoration: none;
+            font-weight: bold;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+            background: #1a1a1a;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+        }
+        nav a:hover {
+            background: #f5f5f5;
+            color: #1a1a1a;
+        }
+        .container {
+            padding-top: 5rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .section {
+            background: #1a1a1a;
+            margin: 1rem 0;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.5);
+        }
+        .button-group {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .btn {
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 5px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: #d4af37;
+            color: #1a1a1a;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+        }
+        .btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+            background: #d4af37;
+        }
+        .chart-container {
+            margin: 2rem 0;
+        }
+        .stats-card {
+            text-align: center;
+            margin: 1rem;
+            background: rgba(255,255,255,0.1);
+            padding: 1rem;
+            border-radius: 10px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+        }
+        .stats-card h3 {
+            margin-bottom: 0.5rem;
+            color: #d4af37;
+        }
+        .stats-value {
+            font-size: 2rem;
+        }
+        footer {
+            text-align: center;
+            margin-top: 2rem;
+            padding: 1rem;
+            background: #d4af37;
+            color: #f5f5f5;
+        }
+    
+    .auth-container {
+        position: absolute;
+        top: 15px;
+        right: 20px;
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+    }
+
+    .auth-btn {
+        background: var(--accent);
+        color: var(--light);
+        border: none;
+        padding: 0.5rem 1rem;
+        border-radius: 5px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+    }
+
+    .auth-btn:hover {
+        background: var(--primary);
+        color: var(--light);
+    }
+
+    .user-profile {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+
+    .user-profile img {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        border: 2px solid var(--accent);
+    }
+
+    .user-profile span {
+        color: var(--light);
+        font-weight: bold;
+    }
+    </style>
+</head>
+<body>
+<header>
+<h1>ReaperYBSTUDY 3.1 🚀</h1>
+<nav>
+<a href="#pomodoro">مؤقت بومودورو</a>
+<a href="#tasks">المهام</a>
+<a href="#stats">الإحصائيات</a>
+<a href="#planner">المخطط الأسبوعي</a>
+<a href="#settings">الإعدادات</a>
+<a class="btn" href="EnhancedMusicPlayer_Stats.html">📊 صفحة الإحصائيات</a></nav>
+<div class="auth-container">
+<button class="btn auth-btn" id="registerBtn">إنشاء حساب</button>
+<button class="btn auth-btn" id="loginBtn">تسجيل الدخول</button>
+<div class="user-profile" id="userProfile" style="display: none;">
+<img alt="صورة الحساب" id="userImage" src=""/>
+<span id="userName"></span>
+</div>
+</div>
+</header>
+<div class="container">
+<section class="section timer" id="pomodoro-clock">
+<h2>⏳ ساعة بومودورو</h2>
+<div class="clock-container">
+<div class="circular-timer" id="timerDisplay">
+<span id="timerText">60:00</span>
+</div>
+</div>
+<div class="button-group">
+<button class="btn" onclick="adjustTime(-5)">⏩</button>
+<button class="btn" onclick="toggleTimer()">⏯️</button>
+<button class="btn" onclick="adjustTime(5)">⏪</button>
+<button class="btn reset-btn" onclick="resetTimer()">🔄</button>
+</div>
+</section>
+<script>
+    let timerInterval;
+    let focusTime = 60; // وقت التركيز بالدقائق
+    let breakTime = 15; // وقت الراحة بالدقائق
+    let isFocusMode = true; // يبدأ بوضع التركيز
+    let minutes = focusTime, seconds = 0;
+    let isTimerRunning = false;
+
+    function updateClockDisplay() {
+        const timerText = document.getElementById('timerText');
+        timerText.textContent = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+
+        const timerDisplay = document.getElementById('timerDisplay');
+        const totalSeconds = (isFocusMode ? focusTime : breakTime) * 60;
+        const elapsedSeconds = totalSeconds - (minutes * 60 + seconds);
+        const percentage = (elapsedSeconds / totalSeconds) * 100;
+
+        timerDisplay.style.background = `conic-gradient(
+            ${isFocusMode ? '#FFC107' : '#4CAF50'} ${percentage}%,
+            #1a1a1a ${percentage}%
+        )`;
+    }
+
+    function toggleTimer() {
+        if (isTimerRunning) {
+            clearInterval(timerInterval);
+        } else {
+            timerInterval = setInterval(() => {
+                if (seconds === 0) {
+                    if (minutes === 0) {
+                        clearInterval(timerInterval);
+                        isFocusMode = !isFocusMode; // التبديل بين التركيز والراحة
+                        switchMode();
+                    } else {
+                        minutes--;
+                        seconds = 59;
+                    }
+                } else {
+                    seconds--;
+                }
+                updateClockDisplay();
+            }, 1000);
+        }
+        isTimerRunning = !isTimerRunning;
+    }
+
+    function adjustTime(value) {
+        minutes = Math.max(0, minutes + value);
+        seconds = 0;
+        updateClockDisplay();
+    }
+
+    function resetTimer() {
+        clearInterval(timerInterval);
+        isFocusMode = true;
+        minutes = focusTime;
+        seconds = 0;
+        isTimerRunning = false;
+        updateClockDisplay();
+    }
+
+    function switchMode() {
+        if (isFocusMode) {
+            minutes = focusTime;
+            alert('💪 حان وقت التركيز!');
+        } else {
+            minutes = breakTime;
+            alert('🛌 حان وقت الراحة!');
+        }
+        seconds = 0;
+        updateClockDisplay();
+        toggleTimer(); // يبدأ التوقيت تلقائيًا
+    }
+
+    updateClockDisplay(); // تحديث العرض عند التحميل
+</script>
+<style>
+    .clock-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: 2rem 0;
+    }
+
+    .circular-timer {
+        width: 250px;
+        height: 250px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 2.5rem;
+        font-weight: bold;
+        color: #ffffff;
+        border-radius: 50%;
+        background: conic-gradient(#FFC107 0%, #1a1a1a 0%);
+        box-shadow: 0 0 20px #FFC107, 0 0 30px rgba(255, 255, 255, 0.1);
+        position: relative;
+        transition: background 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .circular-timer::before {
+        content: '';
+        position: absolute;
+        width: 90%;
+        height: 90%;
+        background: #1a1a1a;
+        border-radius: 50%;
+        box-shadow: inset 0 0 15px rgba(0, 0, 0, 0.5);
+    }
+
+    #timerText {
+        z-index: 1;
+    }
+
+    .button-group {
+        display: flex;
+        justify-content: center;
+        gap: 1rem;
+        margin-top: 1rem;
+    }
+
+    .btn {
+        padding: 0.5rem 1.5rem;
+        font-size: 1.5rem;
+        font-weight: bold;
+        color: #fff;
+        background: #333;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background 0.3s ease, transform 0.2s ease;
+    }
+
+    .btn:hover {
+        background: #555;
+        transform: scale(1.1);
+    }
+
+    .reset-btn {
+        background: #4CAF50;
+    }
+
+    .reset-btn:hover {
+        background: #66BB6A;
+    }
+</style>
+<script>
+    let timerInterval;
+    let focusTime = 60; // دقائق التركيز
+    let breakTime = 15; // دقائق الراحة
+    let isFocusMode = true;
+    let minutes = focusTime, seconds = 0;
+    let isTimerRunning = false;
+
+    function updateClockDisplay() {
+        const minutesElement = document.getElementById('minutes');
+        const secondsElement = document.getElementById('seconds');
+        minutesElement.textContent = minutes.toString().padStart(2, '0');
+        secondsElement.textContent = seconds.toString().padStart(2, '0');
+    }
+
+    function toggleTimer() {
+        if (isTimerRunning) {
+            clearInterval(timerInterval);
+        } else {
+            timerInterval = setInterval(() => {
+                if (seconds === 0) {
+                    if (minutes === 0) {
+                        clearInterval(timerInterval);
+                        isFocusMode = !isFocusMode;
+                        switchMode();
+                    } else {
+                        minutes--;
+                        seconds = 59;
+                    }
+                } else {
+                    seconds--;
+                }
+                updateClockDisplay();
+                updateCircularProgress();
+            }, 1000);
+        }
+        isTimerRunning = !isTimerRunning;
+    }
+
+    function adjustTime(value) {
+        minutes = Math.max(0, minutes + value);
+        seconds = 0;
+        updateClockDisplay();
+        updateCircularProgress();
+    }
+
+    function resetTimer() {
+        clearInterval(timerInterval);
+        isFocusMode = true;
+        minutes = focusTime;
+        seconds = 0;
+        isTimerRunning = false;
+        updateClockDisplay();
+        resetCircularProgress();
+        updateTimerColors();
+    }
+
+    function switchMode() {
+        if (isFocusMode) {
+            minutes = focusTime;
+            alert('💪 حان وقت التركيز!');
+        } else {
+            minutes = breakTime;
+            alert('🛌 حان وقت الراحة!');
+        }
+        seconds = 0;
+        updateClockDisplay();
+        resetCircularProgress();
+        updateTimerColors();
+        toggleTimer();
+    }
+
+    function updateCircularProgress() {
+        const progressElement = document.querySelector('.circular-timer');
+        const totalSeconds = (isFocusMode ? focusTime : breakTime) * 60;
+        const elapsedSeconds = totalSeconds - (minutes * 60 + seconds);
+        const percentage = (elapsedSeconds / totalSeconds) * 100;
+        progressElement.style.background = `conic-gradient(
+            ${isFocusMode ? '#FFC107' : '#4CAF50'} ${percentage}%,
+            #1a1a1a ${percentage}%
+        )`;
+    }
+
+    function resetCircularProgress() {
+        const progressElement = document.querySelector('.circular-timer');
+        progressElement.style.background = `conic-gradient(
+            ${isFocusMode ? '#FFC107' : '#4CAF50'} 0%,
+            #1a1a1a 0%
+        )`;
+    }
+
+    function updateTimerColors() {
+        const timerDisplay = document.getElementById('timerDisplay');
+        timerDisplay.style.color = '#ffffff';
+        timerDisplay.style.border = `5px solid ${isFocusMode ? '#FFC107' : '#4CAF50'}`;
+        timerDisplay.style.boxShadow = `0 0 20px ${isFocusMode ? '#FFC107' : '#4CAF50'}`;
+    }
+
+    updateClockDisplay();
+    updateTimerColors();
+</script>
+<style>
+    .clock-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: 2rem 0;
+    }
+
+    .circular-timer {
+        width: 200px;
+        height: 200px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 2.5rem;
+        font-weight: bold;
+        color: #ffffff;
+        border-radius: 50%;
+        background: conic-gradient(#FFC107 0%, #1a1a1a 0%);
+        box-shadow: 0 0 20px #FFC107;
+        position: relative;
+        transition: background 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .button-group {
+        display: flex;
+        gap: 1rem;
+        justify-content: center;
+        margin-top: 1rem;
+    }
+
+    .btn {
+        padding: 0.5rem 1.5rem;
+        font-size: 1rem;
+        font-weight: bold;
+        color: #fff;
+        background: #333;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background 0.3s ease, transform 0.2s ease;
+    }
+
+    .btn:hover {
+        background: #555;
+        transform: scale(1.1);
+    }
+
+    .reset-btn {
+        background: #4CAF50;
+    }
+
+    .reset-btn:hover {
+        background: #66BB6A;
+    }
+</style>
+<script>
+    let timerInterval;
+    let minutes = 25;
+    let seconds = 0;
+
+    function updateClockDisplay() {
+        document.getElementById('minutes').textContent = minutes.toString().padStart(2, '0');
+        document.getElementById('seconds').textContent = seconds.toString().padStart(2, '0');
+    }
+
+    function startTimer() {
+        clearInterval(timerInterval);
+        timerInterval = setInterval(() => {
+            if (seconds === 0) {
+                if (minutes === 0) {
+                    clearInterval(timerInterval);
+                    alert('انتهى الوقت!');
+                } else {
+                    minutes--;
+                    seconds = 59;
+                }
+            } else {
+                seconds--;
+            }
+            updateClockDisplay();
+        }, 1000);
+    }
+
+    function pauseTimer() {
+        clearInterval(timerInterval);
+    }
+
+    function resetTimer() {
+        clearInterval(timerInterval);
+        minutes = 25;
+        seconds = 0;
+        updateClockDisplay();
+    }
+
+    function adjustTime(value) {
+        minutes = Math.max(0, minutes + value);
+        updateClockDisplay();
+    }
+
+    updateClockDisplay();
+
+    let users = JSON.parse(localStorage.getItem('users')) || {};
+
+    // زر "إنشاء حساب"
+    document.getElementById('registerBtn').addEventListener('click', () => {
+        const username = prompt("أدخل اسم المستخدم:");
+        const password = prompt("أدخل كلمة المرور:");
+        const image = prompt("أدخل رابط الصورة (URL):");
+
+        if (username && password && image) {
+            users[username] = { password, image };
+            localStorage.setItem('users', JSON.stringify(users));
+            alert("تم إنشاء الحساب بنجاح!");
+        } else {
+            alert("يرجى إدخال جميع البيانات!");
+        }
+    });
+
+    // زر "تسجيل الدخول"
+    document.getElementById('loginBtn').addEventListener('click', () => {
+        const username = prompt("أدخل اسم المستخدم:");
+        const password = prompt("أدخل كلمة المرور:");
+
+        if (users[username] && users[username].password === password) {
+            alert("تم تسجيل الدخول بنجاح!");
+            document.getElementById('registerBtn').style.display = 'none';
+            document.getElementById('loginBtn').style.display = 'none';
+
+            const profile = document.getElementById('userProfile');
+            profile.style.display = 'flex';
+            document.getElementById('userName').textContent = username;
+            document.getElementById('userImage').src = users[username].image;
+        } else {
+            alert("اسم المستخدم أو كلمة المرور غير صحيحة!");
+        }
+    });
+
+    // استعادة حالة تسجيل الدخول عند تحميل الصفحة
+    window.onload = () => {
+        const loggedInUser = Object.keys(users).find(user => users[user].isLoggedIn);
+        if (loggedInUser) {
+            document.getElementById('registerBtn').style.display = 'none';
+            document.getElementById('loginBtn').style.display = 'none';
+
+            const profile = document.getElementById('userProfile');
+            profile.style.display = 'flex';
+            document.getElementById('userName').textContent = loggedInUser;
+            document.getElementById('userImage').src = users[loggedInUser].image;
+        }
+    };
+    </script>
+<style>
+    .digital-clock {
+        font-size: 4rem;
+        font-weight: bold;
+        text-align: center;
+        color: #d4af37;
+        background: #1a1a1a;
+        padding: 1rem 2rem;
+        border-radius: 10px;
+        margin: 2rem auto;
+        width: fit-content;
+        box-shadow: 0 8px 15px rgba(0, 0, 0, 0.5);
+        letter-spacing: 0.2rem;
+        font-family: 'Digital-7 Mono', sans-serif;
+    }
+
+    .auth-container {
+        position: absolute;
+        top: 15px;
+        right: 20px;
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+    }
+
+    .auth-btn {
+        background: var(--accent);
+        color: var(--light);
+        border: none;
+        padding: 0.5rem 1rem;
+        border-radius: 5px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+    }
+
+    .auth-btn:hover {
+        background: var(--primary);
+        color: var(--light);
+    }
+
+    .user-profile {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+
+    .user-profile img {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        border: 2px solid var(--accent);
+    }
+
+    .user-profile span {
+        color: var(--light);
+        font-weight: bold;
+    }
+    </style>
+
+<section class="section task-list" id="tasks">
+<h2>📝 قائمة المهام</h2>
+<input class="btn" placeholder="أضف مهمة..." style="width: 60%;" type="text"/>
+<div class="button-group">
+<select class="btn">
+<option value="low">منخفضة</option>
+<option value="medium">متوسطة</option>
+<option value="high">عالية</option>
+</select>
+<button class="btn">إضافة مهمة</button>
+</div>
+</section>
+
+<section class="section calendar" id="monthly">
+<h2>📅 التقويم الشهري</h2>
+<div class="calendar-container">
+<div class="calendar-header">
+<button class="btn" onclick="previousMonth()">السابق</button>
+<h3 id="currentMonth">ديسمبر 2024</h3>
+<button class="btn" onclick="nextMonth()">التالي</button>
+</div>
+<div class="calendar-grid" id="calendarGrid"></div>
+</div>
+</section>
+<script>
+    const calendarGrid = document.getElementById("calendarGrid");
+    const currentMonth = document.getElementById("currentMonth");
+    let date = new Date();
+
+    function renderCalendar() {
+        calendarGrid.innerHTML = "";
+        const firstDayIndex = new Date(date.getFullYear(), date.getMonth(), 1).getDay();
+        const daysInMonth = new Date(date.getFullYear(), date.getMonth() + 1, 0).getDate();
+        currentMonth.textContent = date.toLocaleDateString("ar-SA", { year: 'numeric', month: 'long' });
+
+        for (let i = 0; i < firstDayIndex; i++) {
+            const emptyCell = document.createElement("div");
+            emptyCell.classList.add("calendar-day", "empty");
+            calendarGrid.appendChild(emptyCell);
+        }
+        for (let day = 1; day <= daysInMonth; day++) {
+            const dayCell = document.createElement("div");
+            dayCell.textContent = day;
+            dayCell.classList.add("calendar-day");
+            dayCell.onclick = () => alert(`اخترت يوم ${day}`);
+            calendarGrid.appendChild(dayCell);
+        }
+    }
+    function previousMonth() {
+        date.setMonth(date.getMonth() - 1);
+        renderCalendar();
+    }
+    function nextMonth() {
+        date.setMonth(date.getMonth() + 1);
+        renderCalendar();
+    }
+    renderCalendar();
+
+    let users = JSON.parse(localStorage.getItem('users')) || {};
+
+    // زر "إنشاء حساب"
+    document.getElementById('registerBtn').addEventListener('click', () => {
+        const username = prompt("أدخل اسم المستخدم:");
+        const password = prompt("أدخل كلمة المرور:");
+        const image = prompt("أدخل رابط الصورة (URL):");
+
+        if (username && password && image) {
+            users[username] = { password, image };
+            localStorage.setItem('users', JSON.stringify(users));
+            alert("تم إنشاء الحساب بنجاح!");
+        } else {
+            alert("يرجى إدخال جميع البيانات!");
+        }
+    });
+
+    // زر "تسجيل الدخول"
+    document.getElementById('loginBtn').addEventListener('click', () => {
+        const username = prompt("أدخل اسم المستخدم:");
+        const password = prompt("أدخل كلمة المرور:");
+
+        if (users[username] && users[username].password === password) {
+            alert("تم تسجيل الدخول بنجاح!");
+            document.getElementById('registerBtn').style.display = 'none';
+            document.getElementById('loginBtn').style.display = 'none';
+
+            const profile = document.getElementById('userProfile');
+            profile.style.display = 'flex';
+            document.getElementById('userName').textContent = username;
+            document.getElementById('userImage').src = users[username].image;
+        } else {
+            alert("اسم المستخدم أو كلمة المرور غير صحيحة!");
+        }
+    });
+
+    // استعادة حالة تسجيل الدخول عند تحميل الصفحة
+    window.onload = () => {
+        const loggedInUser = Object.keys(users).find(user => users[user].isLoggedIn);
+        if (loggedInUser) {
+            document.getElementById('registerBtn').style.display = 'none';
+            document.getElementById('loginBtn').style.display = 'none';
+
+            const profile = document.getElementById('userProfile');
+            profile.style.display = 'flex';
+            document.getElementById('userName').textContent = loggedInUser;
+            document.getElementById('userImage').src = users[loggedInUser].image;
+        }
+    };
+    </script>
+<style>
+    .calendar-container {
+        margin: 2rem 0;
+        padding: 1rem;
+        border-radius: 10px;
+        background: rgba(58, 80, 107, 0.1);
+    }
+    .calendar-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 1rem;
+    }
+    .calendar-grid {
+        display: grid;
+        grid-template-columns: repeat(7, 1fr);
+        gap: 0.5rem;
+    }
+    .calendar-day {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 1rem;
+        background: #1a1a1a;
+        border-radius: 5px;
+        transition: all 0.3s ease;
+        font-weight: bold;
+    }
+    .calendar-day:hover {
+        background: #d4af37;
+        color: #1a1a1a;
+    }
+    .calendar-day.empty {
+        background: transparent;
+    }
+
+    .auth-container {
+        position: absolute;
+        top: 15px;
+        right: 20px;
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+    }
+
+    .auth-btn {
+        background: var(--accent);
+        color: var(--light);
+        border: none;
+        padding: 0.5rem 1rem;
+        border-radius: 5px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+    }
+
+    .auth-btn:hover {
+        background: var(--primary);
+        color: var(--light);
+    }
+
+    .user-profile {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+
+    .user-profile img {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        border: 2px solid var(--accent);
+    }
+
+    .user-profile span {
+        color: var(--light);
+        font-weight: bold;
+    }
+    </style>
+<section class="section stats" id="stats">
+<h2>📊 الإحصائيات</h2>
+<div class="chart-container">
+<canvas id="tasksChart"></canvas>
+</div>
+<div class="chart-container">
+<canvas id="pomodoroHoursChart"></canvas>
+</div>
+<div class="chart-container">
+<canvas id="combinedStatsChart"></canvas>
+</div>
+</section>
+<script src="https://cdn.jsdelivr.net/npm/chart.js">
+    let users = JSON.parse(localStorage.getItem('users')) || {};
+
+    // زر "إنشاء حساب"
+    document.getElementById('registerBtn').addEventListener('click', () => {
+        const username = prompt("أدخل اسم المستخدم:");
+        const password = prompt("أدخل كلمة المرور:");
+        const image = prompt("أدخل رابط الصورة (URL):");
+
+        if (username && password && image) {
+            users[username] = { password, image };
+            localStorage.setItem('users', JSON.stringify(users));
+            alert("تم إنشاء الحساب بنجاح!");
+        } else {
+            alert("يرجى إدخال جميع البيانات!");
+        }
+    });
+
+    // زر "تسجيل الدخول"
+    document.getElementById('loginBtn').addEventListener('click', () => {
+        const username = prompt("أدخل اسم المستخدم:");
+        const password = prompt("أدخل كلمة المرور:");
+
+        if (users[username] && users[username].password === password) {
+            alert("تم تسجيل الدخول بنجاح!");
+            document.getElementById('registerBtn').style.display = 'none';
+            document.getElementById('loginBtn').style.display = 'none';
+
+            const profile = document.getElementById('userProfile');
+            profile.style.display = 'flex';
+            document.getElementById('userName').textContent = username;
+            document.getElementById('userImage').src = users[username].image;
+        } else {
+            alert("اسم المستخدم أو كلمة المرور غير صحيحة!");
+        }
+    });
+
+    // استعادة حالة تسجيل الدخول عند تحميل الصفحة
+    window.onload = () => {
+        const loggedInUser = Object.keys(users).find(user => users[user].isLoggedIn);
+        if (loggedInUser) {
+            document.getElementById('registerBtn').style.display = 'none';
+            document.getElementById('loginBtn').style.display = 'none';
+
+            const profile = document.getElementById('userProfile');
+            profile.style.display = 'flex';
+            document.getElementById('userName').textContent = loggedInUser;
+            document.getElementById('userImage').src = users[loggedInUser].image;
+        }
+    };
+    </script>
+<script>
+    // Chart 1: Task Completion Pie Chart
+    const taskChartCtx = document.getElementById('tasksChart').getContext('2d');
+    new Chart(taskChartCtx, {
+        type: 'pie',
+        data: {
+            labels: ['مهام مكتملة', 'مهام غير مكتملة'],
+            datasets: [{
+                data: [70, 30],
+                backgroundColor: ['#4CAF50', '#f44336'],
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: {
+                    position: 'bottom'
+                },
+                title: {
+                    display: true,
+                    text: 'توزيع المهام'
+                }
+            }
+        }
+    });
+
+    // Chart 2: Pomodoro Hours Bar Chart
+    const pomodoroChartCtx = document.getElementById('pomodoroHoursChart').getContext('2d');
+    new Chart(pomodoroChartCtx, {
+        type: 'bar',
+        data: {
+            labels: ['الإثنين', 'الثلاثاء', 'الأربعاء', 'الخميس', 'الجمعة'],
+            datasets: [{
+                label: 'ساعات بومودورو',
+                data: [2, 4, 3, 5, 6],
+                backgroundColor: '#d4af37'
+            }]
+        },
+        options: {
+            responsive: true,
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            },
+            plugins: {
+                legend: {
+                    display: false
+                },
+                title: {
+                    display: true,
+                    text: 'ساعات بومودورو لكل يوم'
+                }
+            }
+        }
+    });
+
+    // Chart 3: Combined Stats Radar Chart
+    const combinedChartCtx = document.getElementById('combinedStatsChart').getContext('2d');
+    new Chart(combinedChartCtx, {
+        type: 'radar',
+        data: {
+            labels: ['إنتاجية', 'تركيز', 'إكمال المهام', 'إدارة الوقت', 'أهداف'],
+            datasets: [{
+                label: 'الأداء اليومي',
+                data: [80, 75, 90, 85, 70],
+                backgroundColor: 'rgba(212, 175, 55, 0.5)',
+                borderColor: '#d4af37',
+                borderWidth: 2
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: {
+                    position: 'bottom'
+                },
+                title: {
+                    display: true,
+                    text: 'إحصائيات الأداء اليومية'
+                }
+            },
+            scales: {
+                r: {
+                    angleLines: {
+                        color: '#444'
+                    },
+                    grid: {
+                        color: '#666'
+                    },
+                    pointLabels: {
+                        color: '#fff'
+                    }
+                }
+            }
+        }
+    });
+
+    let users = JSON.parse(localStorage.getItem('users')) || {};
+
+    // زر "إنشاء حساب"
+    document.getElementById('registerBtn').addEventListener('click', () => {
+        const username = prompt("أدخل اسم المستخدم:");
+        const password = prompt("أدخل كلمة المرور:");
+        const image = prompt("أدخل رابط الصورة (URL):");
+
+        if (username && password && image) {
+            users[username] = { password, image };
+            localStorage.setItem('users', JSON.stringify(users));
+            alert("تم إنشاء الحساب بنجاح!");
+        } else {
+            alert("يرجى إدخال جميع البيانات!");
+        }
+    });
+
+    // زر "تسجيل الدخول"
+    document.getElementById('loginBtn').addEventListener('click', () => {
+        const username = prompt("أدخل اسم المستخدم:");
+        const password = prompt("أدخل كلمة المرور:");
+
+        if (users[username] && users[username].password === password) {
+            alert("تم تسجيل الدخول بنجاح!");
+            document.getElementById('registerBtn').style.display = 'none';
+            document.getElementById('loginBtn').style.display = 'none';
+
+            const profile = document.getElementById('userProfile');
+            profile.style.display = 'flex';
+            document.getElementById('userName').textContent = username;
+            document.getElementById('userImage').src = users[username].image;
+        } else {
+            alert("اسم المستخدم أو كلمة المرور غير صحيحة!");
+        }
+    });
+
+    // استعادة حالة تسجيل الدخول عند تحميل الصفحة
+    window.onload = () => {
+        const loggedInUser = Object.keys(users).find(user => users[user].isLoggedIn);
+        if (loggedInUser) {
+            document.getElementById('registerBtn').style.display = 'none';
+            document.getElementById('loginBtn').style.display = 'none';
+
+            const profile = document.getElementById('userProfile');
+            profile.style.display = 'flex';
+            document.getElementById('userName').textContent = loggedInUser;
+            document.getElementById('userImage').src = users[loggedInUser].image;
+        }
+    };
+    </script>
+</div>
+<footer>© 2024 ReaperYBSTUDY. جميع الحقوق محفوظة.
+<section class="section planner" id="weekly-planner">
+<h2>📅 المخطط الأسبوعي</h2>
+<div class="weekly-planner-container">
+<table class="weekly-planner-table">
+<thead>
+<tr>
+<th>الساعة</th>
+<th>الإثنين</th>
+<th>الثلاثاء</th>
+<th>الأربعاء</th>
+<th>الخميس</th>
+<th>الجمعة</th>
+<th>السبت</th>
+<th>الأحد</th>
+</tr>
+</thead>
+<tbody>
+<tr><td>0:00</td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td></tr><tr><td>1:00</td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td></tr><tr><td>2:00</td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td></tr><tr><td>3:00</td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td></tr><tr><td>4:00</td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td></tr><tr><td>5:00</td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td></tr><tr><td>6:00</td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td></tr><tr><td>7:00</td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td></tr><tr><td>8:00</td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td></tr><tr><td>9:00</td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td></tr><tr><td>10:00</td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td></tr><tr><td>11:00</td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td></tr><tr><td>12:00</td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td></tr><tr><td>13:00</td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td></tr><tr><td>14:00</td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td></tr><tr><td>15:00</td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td></tr><tr><td>16:00</td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td></tr><tr><td>17:00</td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td></tr><tr><td>18:00</td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td></tr><tr><td>19:00</td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td></tr><tr><td>20:00</td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td></tr><tr><td>21:00</td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td></tr><tr><td>22:00</td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td></tr><tr><td>23:00</td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td></tr>
+</tbody>
+</table>
+</div>
+<button class="btn merge-cells-btn" onclick="mergeCells()">دمج الخانات</button>
+</section>
+<script>
+    // Add functionality for merging table cells
+    function mergeCells() {
+        alert('ميزة دمج الخانات قيد التطوير!');
+    }
+
+    let users = JSON.parse(localStorage.getItem('users')) || {};
+
+    // زر "إنشاء حساب"
+    document.getElementById('registerBtn').addEventListener('click', () => {
+        const username = prompt("أدخل اسم المستخدم:");
+        const password = prompt("أدخل كلمة المرور:");
+        const image = prompt("أدخل رابط الصورة (URL):");
+
+        if (username && password && image) {
+            users[username] = { password, image };
+            localStorage.setItem('users', JSON.stringify(users));
+            alert("تم إنشاء الحساب بنجاح!");
+        } else {
+            alert("يرجى إدخال جميع البيانات!");
+        }
+    });
+
+    // زر "تسجيل الدخول"
+    document.getElementById('loginBtn').addEventListener('click', () => {
+        const username = prompt("أدخل اسم المستخدم:");
+        const password = prompt("أدخل كلمة المرور:");
+
+        if (users[username] && users[username].password === password) {
+            alert("تم تسجيل الدخول بنجاح!");
+            document.getElementById('registerBtn').style.display = 'none';
+            document.getElementById('loginBtn').style.display = 'none';
+
+            const profile = document.getElementById('userProfile');
+            profile.style.display = 'flex';
+            document.getElementById('userName').textContent = username;
+            document.getElementById('userImage').src = users[username].image;
+        } else {
+            alert("اسم المستخدم أو كلمة المرور غير صحيحة!");
+        }
+    });
+
+    // استعادة حالة تسجيل الدخول عند تحميل الصفحة
+    window.onload = () => {
+        const loggedInUser = Object.keys(users).find(user => users[user].isLoggedIn);
+        if (loggedInUser) {
+            document.getElementById('registerBtn').style.display = 'none';
+            document.getElementById('loginBtn').style.display = 'none';
+
+            const profile = document.getElementById('userProfile');
+            profile.style.display = 'flex';
+            document.getElementById('userName').textContent = loggedInUser;
+            document.getElementById('userImage').src = users[loggedInUser].image;
+        }
+    };
+    </script>
+<style>
+    .weekly-planner-container {
+        margin: 2rem 0;
+        overflow-x: auto;
+        border-radius: 10px;
+        background: rgba(58, 80, 107, 0.1);
+        padding: 1rem;
+    }
+    .weekly-planner-table {
+        width: 100%;
+        border-collapse: collapse;
+        text-align: center;
+        color: #f5f5f5;
+    }
+    .weekly-planner-table th, .weekly-planner-table td {
+        border: 1px solid #d4af37;
+        padding: 0.5rem;
+        min-width: 100px;
+    }
+    .weekly-planner-table th {
+        background: #d4af37;
+    }
+    .weekly-planner-table td {
+        background: #1a1a1a;
+    }
+    .weekly-planner-table td:hover {
+        background: #d4af37;
+        color: #1a1a1a;
+    }
+
+    .auth-container {
+        position: absolute;
+        top: 15px;
+        right: 20px;
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+    }
+
+    .auth-btn {
+        background: var(--accent);
+        color: var(--light);
+        border: none;
+        padding: 0.5rem 1rem;
+        border-radius: 5px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+    }
+
+    .auth-btn:hover {
+        background: var(--primary);
+        color: var(--light);
+    }
+
+    .user-profile {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+
+    .user-profile img {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        border: 2px solid var(--accent);
+    }
+
+    .user-profile span {
+        color: var(--light);
+        font-weight: bold;
+    }
+    </style>
+</footer>
+<script src="https://cdn.jsdelivr.net/npm/chart.js">
+    let users = JSON.parse(localStorage.getItem('users')) || {};
+
+    // زر "إنشاء حساب"
+    document.getElementById('registerBtn').addEventListener('click', () => {
+        const username = prompt("أدخل اسم المستخدم:");
+        const password = prompt("أدخل كلمة المرور:");
+        const image = prompt("أدخل رابط الصورة (URL):");
+
+        if (username && password && image) {
+            users[username] = { password, image };
+            localStorage.setItem('users', JSON.stringify(users));
+            alert("تم إنشاء الحساب بنجاح!");
+        } else {
+            alert("يرجى إدخال جميع البيانات!");
+        }
+    });
+
+    // زر "تسجيل الدخول"
+    document.getElementById('loginBtn').addEventListener('click', () => {
+        const username = prompt("أدخل اسم المستخدم:");
+        const password = prompt("أدخل كلمة المرور:");
+
+        if (users[username] && users[username].password === password) {
+            alert("تم تسجيل الدخول بنجاح!");
+            document.getElementById('registerBtn').style.display = 'none';
+            document.getElementById('loginBtn').style.display = 'none';
+
+            const profile = document.getElementById('userProfile');
+            profile.style.display = 'flex';
+            document.getElementById('userName').textContent = username;
+            document.getElementById('userImage').src = users[username].image;
+        } else {
+            alert("اسم المستخدم أو كلمة المرور غير صحيحة!");
+        }
+    });
+
+    // استعادة حالة تسجيل الدخول عند تحميل الصفحة
+    window.onload = () => {
+        const loggedInUser = Object.keys(users).find(user => users[user].isLoggedIn);
+        if (loggedInUser) {
+            document.getElementById('registerBtn').style.display = 'none';
+            document.getElementById('loginBtn').style.display = 'none';
+
+            const profile = document.getElementById('userProfile');
+            profile.style.display = 'flex';
+            document.getElementById('userName').textContent = loggedInUser;
+            document.getElementById('userImage').src = users[loggedInUser].image;
+        }
+    };
+    </script>
+<script>
+        const ctx = document.getElementById('pyramidChart').getContext('2d');
+        const pyramidChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ['الأساسيات', 'المتوسط', 'المتقدم'],
+                datasets: [{
+                    label: 'عدد المهام',
+                    data: [50, 30, 10],
+                    backgroundColor: ['#4CAF50', '#FFC107', '#f44336'],
+                }]
+            },
+            options: {
+                indexAxis: 'y',
+                scales: {
+                    x: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    
+    let users = JSON.parse(localStorage.getItem('users')) || {};
+
+    // زر "إنشاء حساب"
+    document.getElementById('registerBtn').addEventListener('click', () => {
+        const username = prompt("أدخل اسم المستخدم:");
+        const password = prompt("أدخل كلمة المرور:");
+        const image = prompt("أدخل رابط الصورة (URL):");
+
+        if (username && password && image) {
+            users[username] = { password, image };
+            localStorage.setItem('users', JSON.stringify(users));
+            alert("تم إنشاء الحساب بنجاح!");
+        } else {
+            alert("يرجى إدخال جميع البيانات!");
+        }
+    });
+
+    // زر "تسجيل الدخول"
+    document.getElementById('loginBtn').addEventListener('click', () => {
+        const username = prompt("أدخل اسم المستخدم:");
+        const password = prompt("أدخل كلمة المرور:");
+
+        if (users[username] && users[username].password === password) {
+            alert("تم تسجيل الدخول بنجاح!");
+            document.getElementById('registerBtn').style.display = 'none';
+            document.getElementById('loginBtn').style.display = 'none';
+
+            const profile = document.getElementById('userProfile');
+            profile.style.display = 'flex';
+            document.getElementById('userName').textContent = username;
+            document.getElementById('userImage').src = users[username].image;
+        } else {
+            alert("اسم المستخدم أو كلمة المرور غير صحيحة!");
+        }
+    });
+
+    // استعادة حالة تسجيل الدخول عند تحميل الصفحة
+    window.onload = () => {
+        const loggedInUser = Object.keys(users).find(user => users[user].isLoggedIn);
+        if (loggedInUser) {
+            document.getElementById('registerBtn').style.display = 'none';
+            document.getElementById('loginBtn').style.display = 'none';
+
+            const profile = document.getElementById('userProfile');
+            profile.style.display = 'flex';
+            document.getElementById('userName').textContent = loggedInUser;
+            document.getElementById('userImage').src = users[loggedInUser].image;
+        }
+    };
+    </script>
+
+<script>
+    // Daily Task Completion Chart
+    const dailyTaskCompletionCtx = document.getElementById('dailyTaskCompletionChart').getContext('2d');
+    new Chart(dailyTaskCompletionCtx, {
+        type: 'bar',
+        data: {
+            labels: ['الأحد', 'الإثنين', 'الثلاثاء', 'الأربعاء', 'الخميس', 'الجمعة', 'السبت'],
+            datasets: [{
+                label: 'إكمال المهام اليومية',
+                data: [10, 15, 20, 25, 30, 35, 40],
+                backgroundColor: '#4CAF50'
+            }]
+        },
+        options: {
+            responsive: true,
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            },
+            plugins: {
+                legend: {
+                    position: 'top'
+                },
+                title: {
+                    display: true,
+                    text: 'إكمال المهام اليومية'
+                }
+            }
+        }
+    });
+
+    // Weekly Progress Chart
+    const weeklyProgressCtx = document.getElementById('weeklyProgressChart').getContext('2d');
+    new Chart(weeklyProgressCtx, {
+        type: 'line',
+        data: {
+            labels: ['الأحد', 'الإثنين', 'الثلاثاء', 'الأربعاء', 'الخميس', 'الجمعة', 'السبت'],
+            datasets: [{
+                label: 'التقدم الأسبوعي',
+                data: [10, 20, 15, 30, 25, 35, 40],
+                borderColor: '#FFC107',
+                borderWidth: 2,
+                fill: false
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: {
+                    position: 'top'
+                },
+                title: {
+                    display: true,
+                    text: 'التقدم الأسبوعي'
+                }
+            },
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+
+    // Remaining Tasks Chart
+    const remainingTasksCtx = document.getElementById('remainingTasksChart').getContext('2d');
+    new Chart(remainingTasksCtx, {
+        type: 'pie',
+        data: {
+            labels: ['مهام مكتملة', 'مهام متبقية'],
+            datasets: [{
+                data: [70, 30],
+                backgroundColor: ['#4CAF50', '#F44336']
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: {
+                    position: 'top'
+                },
+                title: {
+                    display: true,
+                    text: 'المهام المكتملة والمتبقية'
+                }
+            }
+        }
+    });
+</script>
+</body>
+</html>
+<section class="section" id="music-player">
+<h2>🎵 مشغل موسيقى</h2>
+<div class="music-player-container">
+<input id="search-bar" onkeyup="searchSong()" placeholder="ابحث عن أغنية..." type="text"/>
+<div class="playlist" id="playlist">
+<!-- Example playlist items -->
+<div class="song">
+<img alt="Album Cover" src="https://via.placeholder.com/50">
+<div>
+<h4>اسم الأغنية</h4>
+<p>اسم الفنان</p>
+</div>
+<button onclick="playSong('https://www.example.com/song.mp3')">تشغيل</button>
+</img></div>
+</div>
+<audio controls="" id="audio-player">
+<source src="" type="audio/mp3"/>
+            متصفحك لا يدعم مشغل الصوت.
+        </audio>
+</div>
+</section>
+<script>
+    function searchSong() {
+        const searchValue = document.getElementById('search-bar').value.toLowerCase();
+        const songs = document.querySelectorAll('.song');
+        songs.forEach(song => {
+            const songName = song.querySelector('h4').textContent.toLowerCase();
+            if (songName.includes(searchValue)) {
+                song.style.display = 'block';
+            } else {
+                song.style.display = 'none';
+            }
+        });
+    }
+
+    function playSong(url) {
+        const player = document.getElementById('audio-player');
+        player.src = url;
+        player.play();
+    }
+
+    let users = JSON.parse(localStorage.getItem('users')) || {};
+
+    // زر "إنشاء حساب"
+    document.getElementById('registerBtn').addEventListener('click', () => {
+        const username = prompt("أدخل اسم المستخدم:");
+        const password = prompt("أدخل كلمة المرور:");
+        const image = prompt("أدخل رابط الصورة (URL):");
+
+        if (username && password && image) {
+            users[username] = { password, image };
+            localStorage.setItem('users', JSON.stringify(users));
+            alert("تم إنشاء الحساب بنجاح!");
+        } else {
+            alert("يرجى إدخال جميع البيانات!");
+        }
+    });
+
+    // زر "تسجيل الدخول"
+    document.getElementById('loginBtn').addEventListener('click', () => {
+        const username = prompt("أدخل اسم المستخدم:");
+        const password = prompt("أدخل كلمة المرور:");
+
+        if (users[username] && users[username].password === password) {
+            alert("تم تسجيل الدخول بنجاح!");
+            document.getElementById('registerBtn').style.display = 'none';
+            document.getElementById('loginBtn').style.display = 'none';
+
+            const profile = document.getElementById('userProfile');
+            profile.style.display = 'flex';
+            document.getElementById('userName').textContent = username;
+            document.getElementById('userImage').src = users[username].image;
+        } else {
+            alert("اسم المستخدم أو كلمة المرور غير صحيحة!");
+        }
+    });
+
+    // استعادة حالة تسجيل الدخول عند تحميل الصفحة
+    window.onload = () => {
+        const loggedInUser = Object.keys(users).find(user => users[user].isLoggedIn);
+        if (loggedInUser) {
+            document.getElementById('registerBtn').style.display = 'none';
+            document.getElementById('loginBtn').style.display = 'none';
+
+            const profile = document.getElementById('userProfile');
+            profile.style.display = 'flex';
+            document.getElementById('userName').textContent = loggedInUser;
+            document.getElementById('userImage').src = users[loggedInUser].image;
+        }
+    };
+    </script>
+<style>
+    .music-player-container {
+        padding: 1rem;
+        background: #1e1e1e;
+        border-radius: 10px;
+        text-align: center;
+    }
+    #search-bar {
+        width: 80%;
+        padding: 0.5rem;
+        margin-bottom: 1rem;
+        border: 1px solid #d4af37;
+        border-radius: 5px;
+        background: #121212;
+        color: #f5f5f5;
+    }
+    .playlist {
+        max-height: 200px;
+        overflow-y: auto;
+        margin-bottom: 1rem;
+    }
+    .song {
+        display: flex;
+        align-items: center;
+        background: rgba(255, 255, 255, 0.1);
+        margin: 0.5rem 0;
+        padding: 0.5rem;
+        border-radius: 5px;
+    }
+    .song img {
+        margin-right: 1rem;
+        border-radius: 5px;
+    }
+    .song button {
+        margin-left: auto;
+        padding: 0.5rem;
+        background: #d4af37;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        color: #121212;
+    }
+    .song button:hover {
+        background: #f5c85c;
+    }
+
+    .auth-container {
+        position: absolute;
+        top: 15px;
+        right: 20px;
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+    }
+
+    .auth-btn {
+        background: var(--accent);
+        color: var(--light);
+        border: none;
+        padding: 0.5rem 1rem;
+        border-radius: 5px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+    }
+
+    .auth-btn:hover {
+        background: var(--primary);
+        color: var(--light);
+    }
+
+    .user-profile {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+
+    .user-profile img {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        border: 2px solid var(--accent);
+    }
+
+    .user-profile span {
+        color: var(--light);
+        font-weight: bold;
+    }
+    </style>
